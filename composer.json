@@ -15,8 +15,8 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "sylius/sylius": "~1.10.0 || ~1.11.0 || ~1.12.0",
-        "symfony/flex": "^1.10 || ^2.1"
+        "sylius/sylius": "~1.10.0 || ~1.11.0 || ~1.12.0  || ~1.13.0",
+        "symfony/flex": "^1.10 || ^2.1 || ^2.4"
     },
     "conflict": {
         "doctrine/doctrine-bundle": "2.3.0",
