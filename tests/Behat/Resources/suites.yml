@@ -1,0 +1,11 @@
+# Put your Behat suites definitions here
+
+default:
+    suites:
+        baselinker_connector:
+            contexts:
+                #- sylius.behat.context.hook.doctrine_orm
+                - spinbits_sylius_baselinker_plugin.context.api.baselinker_connector
+
+            filters:
+                tags: "@baselinker_connector"

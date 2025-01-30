@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Controller\BaselinkerConnectorController" autowire="true" autoconfigure="true" public="true" />
+
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\FileVersionActionHandler" autowire="true" autoconfigure="true"/>
+		<service id="Spinbits\SyliusBaselinkerPlugin\Handler\OrdersGetActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\OrderAddActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\OrderUpdateActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductPricesActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductQuantityActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsCategoriesActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsDataActionHandler" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsListActionHandler" autowire="true" autoconfigure="true"/>
+		<service id="Spinbits\SyliusBaselinkerPlugin\Handler\StatusesListActionHandler" autowire="true" autoconfigure="true">
+			<argument type="service" id="translator" />
+			<argument key="$config">%sm.configs%</argument>
+		</service>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Handler\SupportedMethodsActionHandler" autowire="true" autoconfigure="true"/>
+
+        <service id="Spinbits\SyliusBaselinkerPlugin\Service\OrderCreateService" autowire="true" autoconfigure="true">
+            <argument key="$orderItemFactory" type="service" id="sylius.custom_factory.order_item"/>
+            <argument key="$addressFactory" type="service" id="sylius.custom_factory.address"/>
+            <argument key="$stateMachineFactory" type="service" id="sm.factory"/>
+        </service>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Service\OrderUpdateService" autowire="true" autoconfigure="true">
+            <argument key="$stateMachineFactory" type="service" id="sm.factory"/>
+        </service>
+
+        <service id="Spinbits\SyliusBaselinkerPlugin\Mapper\ProductMapper" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Mapper\ListProductMapper" autowire="true" autoconfigure="true"/>
+        <service id="Spinbits\SyliusBaselinkerPlugin\Mapper\ListOrderMapper" autowire="true" autoconfigure="true"/>
+
+        <service id="Spinbits\SyliusBaselinkerPlugin\RequestHandler">
+            <argument type="service" id="sylius.context.channel" />
+            <argument key="$password" type="string">%env(BASELINKER_PASSWORD)%</argument>
+            <call method="registerHandler">
+                <argument type="string">FileVersion</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\FileVersionActionHandler" />
+            </call>
+			<call method="registerHandler">
+				<argument type="string">OrdersGet</argument>
+				<argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\OrdersGetActionHandler" />
+			</call>
+            <call method="registerHandler">
+                <argument type="string">OrderAdd</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\OrderAddActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">OrderUpdate</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\OrderUpdateActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">ProductsPrices</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductPricesActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">ProductsQuantity</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductQuantityActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">ProductsCategories</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsCategoriesActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">ProductsData</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsDataActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">ProductsList</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\ProductsListActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">StatusesList</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\StatusesListActionHandler" />
+            </call>
+            <call method="registerHandler">
+                <argument type="string">SupportedMethods</argument>
+                <argument type="service" id="Spinbits\SyliusBaselinkerPlugin\Handler\SupportedMethodsActionHandler" />
+            </call>
+        </service>
+    </services>
+</container>
