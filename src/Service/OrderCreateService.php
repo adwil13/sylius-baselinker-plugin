@@ -40,12 +40,13 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\Component\Payment\Repository\PaymentMethodRepositoryInterface;
 use Sylius\Component\Resource\Factory\Factory;
+use Sylius\Bundle\CoreBundle\Factory\OrderFactoryInterface as OrderFactory;
 use Sylius\Component\Core\Factory\AddressFactory;
 use Webmozart\Assert\Assert;
 
 class OrderCreateService
 {
-    private Factory $orderFactory;
+    private OrderFactory $orderFactory;
     private CartItemFactoryInterface $orderItemFactory;
     private Factory $customerFactory;
     private AddressFactory $addressFactory;
@@ -62,7 +63,7 @@ class OrderCreateService
     private PaymentMethodRepositoryInterface $paymentMethodRepository;
 
     public function __construct(
-        Factory $orderFactory,
+        OrderFactory $orderFactory,
         CartItemFactoryInterface $orderItemFactory,
         Factory $customerFactory,
         AddressFactory $addressFactory,
@@ -179,7 +180,7 @@ class OrderCreateService
         $variant = $this->productVariantRepository->find($product->getVariantId());
         if (null == $variant) {
             /** @var ProductVariantInterface|null $variant */
-            $variant = $this->productVariantRepository->findOneBy(['productId' => $product->getId()]);
+            $variant = $this->productVariantRepository->findOneBy(['product' => $product->getId()]);
         }
 
         $message = sprintf("Product variant with %s id was not found!", $product->getVariantId());
