@@ -1,4 +1,0 @@
-spinbits_sylius_baselinker_connector:
-    path: /baselinker-connector
-    defaults:
-        _controller: Spinbits\SyliusBaselinkerPlugin\Controller\BaselinkerConnectorController::connectorAction
