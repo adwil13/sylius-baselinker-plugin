@@ -1,5 +1,5 @@
 {
-    "name": "spinbits/sylius-baselinker-plugin",
+    "name": "adwil13/sylius-baselinker-plugin",
     "type": "sylius-plugin",
     "description": "Baselinker Plugin for Sylius.",
     "keywords": [
